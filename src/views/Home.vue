@@ -9,7 +9,7 @@
           alt=""
         ></div>
       <div class="content">
-        <div class="title">测试测试测试测试</div>
+        <div class="title">{{name}}</div>
       </div>
     </div>
     <button @click="domtoimage">下载</button>
@@ -26,16 +26,17 @@ export default {
   },
   methods: {
     domtoimage() {
+      let _this = this
       var node = document.getElementById("my-node");
       domtoimage
-        .toPng(dom2)
-        .then(function(node) {
+        .toPng(node)
+        .then(function(dataUrl) {
           var img = new Image();
           img.src = dataUrl;
           document.body.appendChild(img);
           var a = document.createElement("a");
           a.setAttribute("href", dataUrl);
-          a.setAttribute("download", `${this.name}.png`);
+          a.setAttribute("download", `${_this.name}.png`);
           a.click();
         })
         .catch(function(error) {
